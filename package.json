@@ -5,10 +5,11 @@
 
   }, 
   "scripts" : {
-    "renew": "node renew.js",
+    "renew": "node basic/renew.js",
+    "reset": "node basic/reset.js",
+    "setup": "node setup.js",
+    "robot": "node robot.js",
     "basic setup": "node basic/setup.js", 
-    "basic robot": "node basic/robot.js", 
-    "equip setup": "node equip/setup.js",
-    "equip robot": "node equip/robot.js"
+    "basic robot": "node basic/robot.js"
   }
 }

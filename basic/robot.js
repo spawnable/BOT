@@ -7,7 +7,7 @@ const env = process.env
 let count = 0
 
 const task = {
-  index: (req, res)=>res('robot ok'),
+  index: (req, res)=>res('SKY'),
   
   clone: function (req, res) {
   
