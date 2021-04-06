@@ -1,0 +1,12 @@
+{
+  "name": "BOT",
+  "version": "1.0.0",
+  "dependencies": {
+
+  }, 
+  "scripts" : {
+    "index": "node service/index.js",
+    "setup": "node service/setup.js", 
+    "robot": "node service/robot.js"
+  }
+}
