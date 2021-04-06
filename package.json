@@ -5,8 +5,7 @@
 
   }, 
   "scripts" : {
-    "index": "node service/index.js",
-    "setup": "node service/setup.js", 
-    "robot": "node service/robot.js"
+    "setup": "node setup.js", 
+    "robot": "node robot.js"
   }
 }

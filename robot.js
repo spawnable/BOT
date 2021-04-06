@@ -120,4 +120,4 @@ function reply (val, res) {
 
 require("http")
 .createServer((req,res)=>route(req,res))
-.listen(env.push, env.host)
+.listen(env.bot || 3000, env.host || '0.0.0.0')
