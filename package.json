@@ -1,16 +1,12 @@
 {
   "name": "BOT",
-  "main" : "equip",
   "version": "1.0.0",
   "dependencies": {
-
+    "express": "latest"
   }, 
   "scripts" : {
-    "renew": "node basic/renew.js",
-    "reset": "node basic/reset.js",
-    "setup": "node setup.js",
     "robot": "node robot.js",
-    "basic setup": "node basic/setup.js", 
-    "basic robot": "node basic/robot.js"
+    "spawn": "node spawn.js",
+    "clone": "node clone.js"
   }
 }

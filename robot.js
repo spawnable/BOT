@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-const path = require("path")
 const fs = require('fs')
 const cwd = process.cwd()
 const env = process.env
@@ -7,38 +6,35 @@ const env = process.env
 let count = 0
 
 const task = {
-  index: (req, res)=>res('SKY'),
+  index: (req, res)=> res('SKY'),
+  check: (req, res) => {
+    return res('cat')
+  }, 
+  clone: (req, res) => {
   
-  clone: function (req, res) {
-  
-    const file = path
-      .join(cwd, req.o.file)
+    const loc = cwd + req.obj.loc
       
-    write(file, req.x, err=>{
-      if (err) 
-        res(`no: ${file} ${err}`)
-      else
-         res(`ok: ${file}`)
-     })
-     
+    write(loc, req.buf, err => err
+      ? res(`no: ${file} ${err}`)
+      : res(`ok: ${file}`))
   }
-  
-  
+ 
 }
 
 function route (req, res) {
-  req.setEncoding("utf8")
   let obj = parse(req.url)
-  let data = ""
+  let arr = []
   console.log(count++, obj.path)
-  req.on("data", add => data += add);
+  req.on("data", buf => arr.push(buf));
   req.on('end', ()=>
-  task[obj.path]({x: data,o: obj.query},
-  out=>reply(out, res)))
+  task[obj.path]({
+    buf: Buffer.concat(arr),
+    obj: obj.query},
+    out=>reply(out, res)))
 }
 
 const url = new RegExp("^(\\w*\\s+)?(http:\\/\\/|https:\\/\\/)?([-_.\\w]*)?(:\\d*)?(\\/[-_./\\w]*)?(\\?.*)?")
-const val = new RegExp("[?&]([^&]+)=([^&]+)", "g")
+const key = new RegExp("[?&]([^&]+)=([^&]+)", "g")
 
 function parse (str) {
   const arr = url.exec(str)
@@ -67,7 +63,7 @@ function parse (str) {
 function query(str) {
   let obj = {}, arr;
   
-  while (arr = val.exec(str)) {
+  while (arr = key.exec(str)) {
     try {
       arr[2] = JSON.parse(arr[2]);
     } catch (err) {}
@@ -78,46 +74,46 @@ function query(str) {
     return obj
 }
 
-function write (str, val, res) {
-fs.open(str, "r+",(err, idx) => {
-  if (!err && idx) 
-    fs.ftruncate(idx, (err) => {
-      if (!err) fs.writeFile(idx, val, 
+function write (dir, buf, exe) {
+fs.open(dir, "r+", (err, loc) => {
+  if (!err && loc) 
+    fs.ftruncate(loc, err => {
+      if (!err) fs.writeFile(loc, buf, 
         (error) => {
           if (!err) 
-          fs.close(idx, val => res(val))
-          else res(err)
+          fs.close(loc, str => res(str))
+          else exe(err)
         })
-      else res(err)
+      else exe(err)
       })
   else 
-  fs.mkdir(str
+  fs.mkdir(dir
     .split("/")
     .slice(0, -1)
     .join("/"), {"recursive": true},
- (err) => {
-    if (!err) fs.open(str, "wx", 
-      (err, idx) => {
-        if (!err) fs.writeFile(idx, val,
-         (err) => {
+  err => {
+    if (!err) fs.open(dir, "wx", 
+      (err, loc) => {
+        if (!err) fs.writeFile(loc, buf,
+          err => {
             if (!err) 
-            fs.close(idx, val => res(val))
-            else res(err)
+            fs.close(loc, str => exe(str))
+            else exe(err)
           })
-          else res(err)
+          else exe(err)
         })
-      else res(err)
+      else exe(err)
     })
   })
 }
 
-function reply (val, res) {
+function reply (str, res) {
   res.setHeader(
       "Content-Type",
       "text/plain")
-  res.end(val)
+  res.end(str)
 }
 
 require("http")
 .createServer((req,res)=>route(req,res))
-.listen(env.bot || 3000, env.host || '0.0.0.0')
+.listen(env.sftp || 3000, env.host || '0.0.0.0')
