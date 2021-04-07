@@ -1,6 +1,6 @@
 function print (exe, obj, str) {
 return `[Unit]
-Description=${obj.dir}
+Description=${exe}
 After=network.target
 
 [Service]

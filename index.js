@@ -31,7 +31,7 @@ function auth (use, exe) {
     hostname: use.host,
     path: '/check',
     method: 'GET',
-    port: use.http
+    port: use.sftp
   }
   
   let src = http.request(obj, res=>{
@@ -58,15 +58,15 @@ function src (use) {
 
 function job (val, obj) {
   let str = ''
-  if (typeof val == 'boolean') {
-    if (val){
-      str = '[+ +] online'
-      clone(obj, rig, app, bot)
-    }
-    else {
-      str = '[- -] offline'
-    }
+  if (val){
+    console.log(val)
+    console.log('[+ +] online')
+    clone(obj, rig, app, bot)
   }
-  console.log(str)
+  else {
+    console.log('[- -] offline')
+  }
+
+ 
 }
  

@@ -8,10 +8,10 @@ let count = 0
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
-    return res('cat')
+    return res('(^ ^) welcome')
   }, 
   clone: (req, res) => {
-  
+  console.log(req)
     const loc = cwd + req.obj.loc
       
     write(loc, req.buf, err => err

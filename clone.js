@@ -11,6 +11,8 @@ const bin = [
   '.gitkeep', 
   '.gitignore'
 ]
+const fs = require('fs')
+const http = require('http')
 
 const mod = 'file:node_modules'
 
@@ -22,22 +24,19 @@ module.exports = function (obj, ...arr) {
 
 function patch (obj, loc, buf) {
    const use = {
-      headers: {
-      'Content-Length': Buffer
-        .byteLength(buf)
-      },
       protocol: "http:",
       hostname: obj.host,
       path: '/clone' + field({loc}),
       method: "POST",
-      port: obj.http
+      port: obj.sftp
   }
+  console.log(use)
   
   let post = http.request(use, res=>{
-    let txt = ''
-    res.setEncoding("utf8")
-    res.on("data", str => txt += str)
-    res.on('end',()=> console.log(str))
+    let arr = []
+    res.on("data", buf => arr.push(buf))
+    res.on('end',()=>
+      print(Buffer.concat(arr)))
   })
   
   post.on("error", err => {
@@ -45,7 +44,12 @@ function patch (obj, loc, buf) {
   })
   
   post.write(buf)
+  console.log('ok')
   post.end()
+}
+
+function print(buf) {
+  console.log(buf.toString('utf8'))
 }
 
 function field (obj) {
@@ -78,13 +82,13 @@ function drill (src, loc, put, exe) {
       if (obj.on) obj.on = mod.on + put
       pkg = JSON.stringify(pkg)
       buf = Buffer.from(pkg, 'utf8')
-      exe({dir, buf})
+      exe(dir, buf)
        return
     }
   
     if (str.includes('.')) {
       buf = fs.readFileSync(src + dir)
-      exe({dir, buf})
+      exe(dir, buf)
     } else drill(src, dir, put, exe)
   })
 

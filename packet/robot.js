@@ -8,7 +8,7 @@ let count = 0
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
-    return res('cat')
+    return res('(^ ^) welcome')
   }, 
   clone: (req, res) => {
   
