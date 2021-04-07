@@ -50,9 +50,10 @@ function auth (use, exe) {
 }
 
 function src (use) {
-  return fs
+  return loc + fs
   .readdirSync(loc)
   .filter(str => str.includes(use))[0]
+  + '/src'
 }
 
 function job (val, obj) {

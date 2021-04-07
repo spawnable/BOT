@@ -19,7 +19,7 @@ WantedBy=multi-user.target
 
 const fs = require('fs')
 
-exports.module = function (dir, obj) {
+module.exports = function (dir, obj) {
 
   const ssl = '/etc/letsencrypt/live/'
             + obj.name + '/'

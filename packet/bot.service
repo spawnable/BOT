@@ -1,0 +1,23 @@
+[Unit]
+Description=app
+After=network.target
+
+[Service]
+ExecStart=/root/app/robot.js
+Restart=always
+Type=simple
+#User=nobody
+#Group=nogroup
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=dir=app
+Environment=https=443
+Environment=http=80
+Environment=sftp=3000
+Environment=app=index.js
+Environment=bot=robot.js
+Environment=name=xxxxx
+Environment=env=web dev
+WorkingDirectory=/root/app
+
+[Install]
+WantedBy=multi-user.target

@@ -2,7 +2,7 @@
   "name": "BOT",
   "version": "1.0.0",
   "dependencies": {
-    "express": "latest"
+
   }, 
   "scripts" : {
     "robot": "node robot.js",
