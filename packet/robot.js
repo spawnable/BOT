@@ -11,7 +11,7 @@ const task = {
     return res('(^ ^) welcome')
   }, 
   clone: (req, res) => {
-  
+  console.log(req)
     const loc = cwd + req.obj.loc
       
     write(loc, req.buf, err => err

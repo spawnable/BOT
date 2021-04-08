@@ -11,7 +11,7 @@ const task = {
     return res('(^ ^) welcome')
   }, 
   clone: (req, res) => {
-  console.log(req)
+    console.log(req)
     const loc = cwd + req.obj.loc
       
     write(loc, req.buf, err => err
@@ -81,7 +81,7 @@ fs.open(dir, "r+", (err, loc) => {
       if (!err) fs.writeFile(loc, buf, 
         (error) => {
           if (!err) 
-          fs.close(loc, str => res(str))
+          fs.close(loc, str => exe(str))
           else exe(err)
         })
       else exe(err)
