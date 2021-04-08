@@ -25,27 +25,28 @@ module.exports = function (use) {
   
 }
 
-function auth (use, exe) {
-  const obj = {
+function auth (obj, exe) {
+  const use = {
     protocol: "http:",
-    hostname: use.host,
-    path: '/',
+    hostname: obj.host,
+    path: '/check',
     method: 'GET',
-    port: use.sftp
+    port: obj.sftp
   }
-  let src = http.request(obj, res=>{
+  
+  let load = http.request(use, res=>{
     let arr = []
     res.on("data", buf => arr.push(buf))
     res.on('end',()=>
-    exe(Buffer.concat(arr)))
+      exe(Buffer.concat(arr)))
   })
   
-  src.on("error", err => {
+  load.on("error", err => {
     exe(false)
   })
   
-  if (use.key) src.write(use.key)
-  src.end()
+  if (use.key) load.write(use.key)
+  load.end()
 }
 
 function src (use) {
@@ -56,15 +57,12 @@ function src (use) {
 }
 
 function job (buf, obj) {
-  if (buf){
-  console.log(buf.toString('utf8'))
-   console.log('[+ +] online')
+  if (buf) {
+    console.log(buf.toString('utf8'))
+    console.log('[+ +] online')
     clone(obj, rig, app, bot)
-  }
-  else {
+  } else {
     console.log('[- -] offline')
   }
-
- 
 }
  

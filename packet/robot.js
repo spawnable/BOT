@@ -8,14 +8,14 @@ let count = 0
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
-    res('okpk')
+    res('(^ ^) hello')
   }, 
   clone: (req, res) => {
     const loc = cwd + req.obj.loc
       
     write(loc, req.buf, err => err
-      ? res(`no: ${loc} ${err}`)
-      : res(`ok: ${loc}`))
+      ? res(`✗ ${loc} ${err}`)
+      : res(`✓ ${loc}`))
   }
  
 }
@@ -107,11 +107,7 @@ fs.open(dir, "r+", (err, loc) => {
 }
 
 function reply (str, res) {
-  res.writeHead(200, {
-    "Content-Length": Buffer.byteLength(str),
-    'Content-Type': 'text/plain'
-  })
-  res.write(str, 'utf8')
+  res.write(str)
   res.end()
 }
 
