@@ -14,7 +14,9 @@ const bin = [
 const fs = require('fs')
 const http = require('http')
 
-const mod = 'file:node_modules'
+const mod = {
+  on: 'file:node_modules/engine'
+}
 
 module.exports = function (obj, ...arr) {
   arr.forEach(exe =>
@@ -75,9 +77,10 @@ function drill (src, loc, put, exe) {
     if (str === 'package.json') {
       let pkg = fs.readFileSync(src + dir)
       pkg = JSON.parse(pkg)
+      delete pkg.scripts
       let obj = pkg.dependencies
       if (obj.up) delete obj.up
-      if (obj.on) obj.on = mod.on + put
+      if (obj.on) obj.on = mod.on
       pkg = JSON.stringify(pkg)
       buf = Buffer.from(pkg, 'utf8')
       exe(dir, buf)
