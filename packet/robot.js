@@ -8,7 +8,7 @@ let count = 0
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
-    return res('(^ ^) welcome')
+    res('okpk')
   }, 
   clone: (req, res) => {
     const loc = cwd + req.obj.loc
@@ -107,9 +107,6 @@ fs.open(dir, "r+", (err, loc) => {
 }
 
 function reply (str, res) {
-  res.setHeader(
-      "Content-Type",
-      "text/plain")
   res.end(str)
 }
 

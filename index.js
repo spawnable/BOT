@@ -21,7 +21,7 @@ module.exports = function (use) {
   
   const obj = spawn(bot.src, use)
   
-  auth(obj, res=>job(res, obj))
+  auth(obj, buf=>job(buf, obj))
   
 }
 
@@ -29,16 +29,16 @@ function auth (use, exe) {
   const obj = {
     protocol: "http:",
     hostname: use.host,
-    path: '/check',
+    path: '/',
     method: 'GET',
     port: use.sftp
   }
-  
+  console.log(obj)
   let src = http.request(obj, res=>{
     let arr = []
-    res.on("data", buf => arr.push(buf)) 
-    res.on('end', () => 
-     exe(Buffer.concat(arr)))
+    res.on("data", buf => arr.push(buf))
+    res.on('end',()=>
+    exe(Buffer.concat(arr)))
   })
   
   src.on("error", err => {
@@ -56,12 +56,13 @@ function src (use) {
   + '/src'
 }
 
-function job (val, obj) {
-  let str = ''
-  if (val){
-    console.log(val)
-    console.log('[+ +] online')
-    clone(obj, rig, app, bot)
+function job (buf, obj) {
+  if (buf){
+   console.log(typeof buf)
+   console.log(buf)
+  console.log(buf.toString('utf8'))
+   console.log('[+ +] online')
+    //clone(obj, rig, app, bot)
   }
   else {
     console.log('[- -] offline')
