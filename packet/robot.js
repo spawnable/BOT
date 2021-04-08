@@ -11,12 +11,11 @@ const task = {
     return res('(^ ^) welcome')
   }, 
   clone: (req, res) => {
-    console.log(req)
     const loc = cwd + req.obj.loc
       
     write(loc, req.buf, err => err
-      ? res(`no: ${file} ${err}`)
-      : res(`ok: ${file}`))
+      ? res(`no: ${loc} ${err}`)
+      : res(`ok: ${loc}`))
   }
  
 }
