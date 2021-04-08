@@ -108,7 +108,7 @@ fs.open(dir, "r+", (err, loc) => {
 
 function reply (str, res) {
   res.writeHead(200, {
-    "Content-Length": Buffer.byteLength(value),
+    "Content-Length": Buffer.byteLength(str),
     'Content-Type': 'text/plain'
   })
   res.write(str, 'utf8')

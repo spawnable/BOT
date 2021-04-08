@@ -33,7 +33,6 @@ function auth (use, exe) {
     method: 'GET',
     port: use.sftp
   }
-  console.log(obj)
   let src = http.request(obj, res=>{
     let arr = []
     res.on("data", buf => arr.push(buf))
@@ -58,11 +57,9 @@ function src (use) {
 
 function job (buf, obj) {
   if (buf){
-   console.log(typeof buf)
-   console.log(buf)
   console.log(buf.toString('utf8'))
    console.log('[+ +] online')
-    //clone(obj, rig, app, bot)
+    clone(obj, rig, app, bot)
   }
   else {
     console.log('[- -] offline')
