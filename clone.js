@@ -30,7 +30,6 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp
   }
-  console.log(use)
   
   let post = http.request(use, res=>{
     let arr = []
@@ -44,7 +43,6 @@ function patch (obj, loc, buf) {
   })
   
   post.write(buf)
-  console.log('ok')
   post.end()
 }
 
