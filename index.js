@@ -5,7 +5,7 @@ const clone = require('./clone')
 
 const loc = process.cwd() + "/../../"
 const app = {
-  src: src('APP'),
+  src: process.cwd(),
   dir: ''
 }
 const bot = {
