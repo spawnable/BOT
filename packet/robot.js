@@ -150,7 +150,7 @@ if (env.spawn === 'index') {
     'function index () {',
      '#!/usr/bin/env node')
   str = str.substring(0, str.length - 1)
-  fs.writeFileSync(cwd + '/test.js', str)
+  fs.writeFileSync(cwd + '/index.js', str)
   return 
 }
 
