@@ -37,17 +37,17 @@ function put (err, pub, prv) {
 function run (exe) {
   crypto
   .generateKeyPair('rsa', {
-    "modulusLength": 4096,
-    "publicKeyEncoding": {
-        "type": 'spki',
-        "format": 'pem'
+    modulusLength: 4096,
+      publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem'
       },
-    "privateKeyEncoding": {
-        "type": 'pkcs8',
-        "format": 'pem',
-        "cipher": 'aes-256-cbc',
-        "passphrase": txt
-    }
+      privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem',
+        cipher: 'aes-256-cbc',
+        passphrase: txt
+      }
   }, exe)
 }
 

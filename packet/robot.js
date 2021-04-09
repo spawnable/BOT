@@ -14,45 +14,6 @@ let idx = 0
 
 let pbk2
 let prk2
-const txt = plain(600)
-
-function proof (exe) {
-  crypto
-  .generateKeyPair('rsa', {
-    "modulusLength": 4096,
-    "publicKeyEncoding": {
-        "type": 'spki',
-        "format": 'pem'
-      },
-    "privateKeyEncoding": {
-        "type": 'pkcs8',
-        "format": 'pem',
-        "cipher": 'aes-256-cbc',
-        "passphrase": txt
-    }
-  }, ready)
-}
-
-function ready (err, pub, prv) {
-  
-  pbk2 = pub
- 
-  prk2 = crypto
-    .createPrivateKey({
-      key: prv,
-      format: 'pem',
-      type: 'pkcs8',
-      passphrase: txt
-    })
-}
-
-function plain (num) {
-  return crypto
-    .randomBytes(num + 5)
-    .toString("base64")
-    .replace(etc, "")
-    .slice(0, num)
-}
 
 const task = {
   index: (req, res)=> res('SKY'),
@@ -86,7 +47,6 @@ const task = {
 
 function route (req, res) {
   let obj = parse(req.url)
-  console.log(obj)
   let arr = []
   req.on("data", buf => arr.push(buf));
   req.on('end', ()=>
@@ -172,7 +132,15 @@ function reply (str, res) {
   res.write(str)
   res.end()
 }
-  
+
+function plain (num) {
+  return crypto
+    .randomBytes(num + 5)
+    .toString("base64")
+    .replace(etc, "")
+    .slice(0, num)
+}
+
 function index () {
  
   const fs = require('fs')
@@ -217,13 +185,39 @@ if (env.spawn === 'index') {
 }
 
 if (env.pbk) {
-  function start () {
-    pbk = fs.readFileSync(env.pbk)
-  }
+  const txt = plain(600)
+  pbk = fs.readFileSync(env.pbk)
   
+   crypto
+    .generateKeyPair('rsa', {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem'
+      },
+      privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem',
+        cipher: 'aes-256-cbc',
+        passphrase: txt
+      }
+    }, (err, pub, prv) => {
+  
+      pbk2 = pub
+     
+      prk2 = crypto
+        .createPrivateKey({
+          key: prv,
+          format: 'pem',
+          type: 'pkcs8',
+          passphrase: txt
+        })
+    })
+    
   http
     .createServer(route)
-    .listen(env.sftp, env.host, start)
+    .listen(env.sftp, env.host)
+ 
 }
 
 
