@@ -57,8 +57,8 @@ function src (use) {
 
 function job (buf, obj) {
   if (buf) {
-   log(buf.toString('utf8'))
-   clone(obj, rig, app, bot)
+   log('[^ ^]')
+   clone(obj, buf, rig, app, bot)
   } else {
     log('[- -]')
   }

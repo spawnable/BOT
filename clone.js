@@ -20,29 +20,37 @@ const mod = {
   on: 'file:node_modules/engine'
 }
 
-let key;
+let prk
+let pbk
 
-module.exports = function (obj,...arr) {
- 
-  const txt = fs
-    .readFileSync(obj.rig + '/bot.txt')
-  const prk = fs
-    .readFileSync(obj.rig + '/bot.key')
+module.exports = function (obj, buf, ...arr) {
     
-  key = crypto
+  prk = crypto
     .createPrivateKey({
-      key: prk,
+      key: fs
+      .readFileSync(obj.rig + '/bot.key'),
       format: 'pem',
       type: 'pkcs8',
-      passphrase: txt
+      passphrase: fs
+      .readFileSync(obj.rig + '/bot.txt')
     })
     
+  pbk = crypto
+    .createPublicKey({
+      key: buf,
+      format: 'pem',
+      type: 'spki'
+    })
+  
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
     (loc, buf)=>patch(obj, loc, buf)))
 }
 
 function patch (obj, loc, buf) {
+ 
+   buf = crypto
+     .publicEncrypt(pbk, buf)
  
    const use = {
       protocol: "http:",
@@ -52,7 +60,7 @@ function patch (obj, loc, buf) {
       port: obj.sftp,
       headers : {
         sig: crypto
-          .sign('sha512', buf, key)
+          .sign('sha512', buf, prk)
           .toString("hex")
       }
   }

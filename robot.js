@@ -7,9 +7,52 @@ const env = process.env
 
 const url = new RegExp("^(\\w*\\s+)?(http:\\/\\/|https:\\/\\/)?([-_.\\w]*)?(:\\d*)?(\\/[-_./\\w]*)?(\\?.*)?")
 const key = new RegExp("[?&]([^&]+)=([^&]+)", "g")
+const etc = new RegExp("[=\\/+\\d]", "g")
 
 let pbk
 let idx = 0
+
+let pbk2
+let prk2
+const txt = plain(600)
+
+function proof (exe) {
+  crypto
+  .generateKeyPair('rsa', {
+    "modulusLength": 4096,
+    "publicKeyEncoding": {
+        "type": 'spki',
+        "format": 'pem'
+      },
+    "privateKeyEncoding": {
+        "type": 'pkcs8',
+        "format": 'pem',
+        "cipher": 'aes-256-cbc',
+        "passphrase": txt
+    }
+  }, ready)
+}
+
+function ready (err, pub, prv) {
+  
+  pbk2 = pub
+ 
+  prk2 = crypto
+    .createPrivateKey({
+      key: prv,
+      format: 'pem',
+      type: 'pkcs8',
+      passphrase: txt
+    })
+}
+
+function plain (num) {
+  return crypto
+    .randomBytes(num + 5)
+    .toString("base64")
+    .replace(etc, "")
+    .slice(0, num)
+}
 
 const task = {
   index: (req, res)=> res('SKY'),
@@ -17,18 +60,21 @@ const task = {
     idx = 0
     console
       .log((new Date()).toISOString())
-    res('[^ ^]')
+    res(pbk2)
   }, 
   clone: (req, res) => {
-      
+    
+    const buf = crypto
+      .privateDecrypt(prk2, req.buf)
+    
     const boo = crypto.verify(
-        'sha512', req.buf, pbk, 
+        'sha512', buf, pbk, 
         Buffer.from(req.tag.sig, 'hex'))
         
     if (boo) {
       const loc = cwd + req.obj.loc
      
-      write(loc, req.buf, err => err
+      write(loc, buf, err => err
       ? res(`${++idx} ${loc}\n${err}`)
       : res(`${++idx} ${loc}`))
         
