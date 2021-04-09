@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs')
+const crypto = require('crypto')
 const cwd = process.cwd()
 const env = process.env
 let pbk;
@@ -26,12 +27,16 @@ const task = {
         pbk, 
         req.tag.sig)
         
+    console.log(boo)
+    console.log(typeof boo)
+        
     if (boo) {
       const loc = cwd + req.obj.loc
      
       write(loc, req.buf, err => err
         ? res(`${idx} ${loc}\n${err}`)
         : res(`${idx} ${loc}`))
+        
     } else res('[> <]')
     
   }

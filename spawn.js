@@ -69,7 +69,7 @@ module.exports = function (dir, obj) {
     print('bot', obj, str))
   fs.writeFileSync(pkg + 'robot.js',
     fs.readFileSync(dir + '/robot.js'))
-
+ 
   return obj
 
 }
