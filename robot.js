@@ -16,7 +16,6 @@ const task = {
     res('[^ ^]')
   }, 
   clone: (req, res) => {
-    idx++ 
     
     console
       .log((new Date()).toISOString())
@@ -25,15 +24,12 @@ const task = {
         'sha512', req.buf, pbk, 
         Buffer.from(req.tag.sig, 'hex'))
         
-    console.log(boo)
-    console.log(typeof boo)
-        
     if (boo) {
       const loc = cwd + req.obj.loc
      
       write(loc, req.buf, err => err
-        ? res(`${idx} ${loc}\n${err}`)
-        : res(`${idx} ${loc}`))
+        ? res(`${idx++} ${loc}\n${err}`)
+        : res(`${idx++} ${loc}`))
         
     } else res('[> <]')
     
