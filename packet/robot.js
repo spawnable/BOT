@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const crypto = require('crypto')
-const https = require('https')
+const http = require('http')
 const cwd = process.cwd()
 const env = process.env
 
@@ -175,17 +175,8 @@ if (env.pbk) {
     pbk = fs.readFileSync(env.pbk)
   }
   
-  const etc = {
-    key: fs.readFileSync(env.key),
-    cert:fs.readFileSync(env.cert)
-  }
-  
-  if (env.ca) {
-    etc.ca = fs.readFileSync(env.ca)
-  }
-  
-  https
-    .createServer(etc, route)
+  http
+    .createServer(route)
     .listen(env.sftp, env.host, start)
 }
 

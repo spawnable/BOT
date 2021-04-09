@@ -1,5 +1,5 @@
 const fs = require('fs')
-const https = require("https")
+const http = require("http")
 const spawn = require('./spawn')
 const clone = require('./clone')
 
@@ -26,14 +26,14 @@ module.exports = function (use) {
 
 function auth (obj, exe) {
   const use = {
-    protocol: "https:",
+    protocol: "http:",
     hostname: obj.host,
     path: '/check',
     method: 'GET',
     port: obj.sftp
   }
   
-  let load = https.request(use, res=>{
+  let load = http.request(use, res=>{
     let arr = []
     res.on("data", buf => arr.push(buf))
     res.on('end',()=>

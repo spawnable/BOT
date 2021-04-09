@@ -13,7 +13,7 @@ const bin = [
   '.gitignore'
 ]
 const fs = require('fs')
-const https = require('https')
+const http = require('http')
 const crypto = require('crypto')
 
 const mod = {
@@ -45,7 +45,7 @@ module.exports = function (obj,...arr) {
 function patch (obj, loc, buf) {
  
    const use = {
-      protocol: "https:",
+      protocol: "http:",
       hostname: obj.host,
       path: '/clone' + field({loc}),
       method: "POST",
