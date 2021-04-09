@@ -13,7 +13,7 @@ const bin = [
   '.gitignore'
 ]
 const fs = require('fs')
-const http = require('http')
+const https = require('https')
 const crypto = require('crypto')
 
 const mod = {
@@ -45,7 +45,7 @@ module.exports = function (obj,...arr) {
 function patch (obj, loc, buf) {
  
    const use = {
-      protocol: "http:",
+      protocol: "https:",
       hostname: obj.host,
       path: '/clone' + field({loc}),
       method: "POST",
@@ -57,7 +57,7 @@ function patch (obj, loc, buf) {
       }
   }
   
-  let post = http.request(use, res=>{
+  let post = https.request(use, res=>{
     let arr = []
     res.on("data", buf => arr.push(buf))
     res.on('end',()=>
@@ -97,7 +97,9 @@ function drill (src, loc, put, exe) {
         fs.unlinkSync(src + dir)
       return
     }
-    let buf;
+    
+    let buf
+    
     if (str === 'package.json') {
       let pkg = fs.readFileSync(src + dir)
       pkg = JSON.parse(pkg)
@@ -108,7 +110,7 @@ function drill (src, loc, put, exe) {
       pkg = JSON.stringify(pkg)
       buf = Buffer.from(pkg, 'utf8')
       exe(dir, buf)
-       return
+      return
     }
   
     if (str.includes('.')) {

@@ -1,24 +1,25 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const crypto = require('crypto')
+const https = require('https')
 const cwd = process.cwd()
 const env = process.env
-let pbk;
+
 const url = new RegExp("^(\\w*\\s+)?(http:\\/\\/|https:\\/\\/)?([-_.\\w]*)?(:\\d*)?(\\/[-_./\\w]*)?(\\?.*)?")
 const key = new RegExp("[?&]([^&]+)=([^&]+)", "g")
 
+let pbk
 let idx = 0
 
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
     idx = 0
+    console
+      .log((new Date()).toISOString())
     res('[^ ^]')
   }, 
   clone: (req, res) => {
-    
-    console
-      .log((new Date()).toISOString())
       
     const boo = crypto.verify(
         'sha512', req.buf, pbk, 
@@ -28,8 +29,8 @@ const task = {
       const loc = cwd + req.obj.loc
      
       write(loc, req.buf, err => err
-        ? res(`${idx++} ${loc}\n${err}`)
-        : res(`${idx++} ${loc}`))
+      ? res(`${++idx} ${loc}\n${err}`)
+      : res(`${++idx} ${loc}`))
         
     } else res('[> <]')
     
@@ -168,10 +169,23 @@ if (env.spawn === 'index') {
   return 
 }
 
-require("http")
-.createServer((req,res)=>route(req,res))
-.listen(env.sftp || 3000, env.host || '0.0.0.0', ()=>{
-  if (env.sftp) pbk = fs
-  .readFileSync(`/etc/letsencrypt/live/${env.name}/bot.pem`)
+if (env.pbk) {
+  function start () {
+    pbk = fs.readFileSync(env.pbk)
+  }
   
-})
+  const etc = {
+    key: fs.readFileSync(env.key),
+    cert:fs.readFileSync(env.cert)
+  }
+  
+  if (env.ca) {
+    etc.ca = fs.readFileSync(env.ca)
+  }
+  
+  https
+    .createServer(etc, route)
+    .listen(env.sftp, env.host, start)
+}
+
+

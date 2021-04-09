@@ -21,18 +21,18 @@ const fs = require('fs')
 
 module.exports = function (dir, obj) {
 
-  const ssl = '/etc/letsencrypt/live/'
+  const etc = '/etc/letsencrypt/live/'
             + obj.name + '/'
             
   const loc = {
     web: {
-      key: ssl + 'live.key',
-      cert: ssl + 'cert.crt',
-      ca: ssl + 'ca.crt' 
+      key: etc + 'live.key',
+      cert: etc + 'cert.crt',
+      ca: etc + 'ca.crt' 
     }, 
     dev: {
-      key: ssl + 'privkey.pem',
-      cert: ssl + 'fullchain.pem'
+      key: etc + 'privkey.pem',
+      cert: etc + 'fullchain.pem'
     }}
     
   const val = {
@@ -41,7 +41,8 @@ module.exports = function (dir, obj) {
     http: 80,
     sftp: 3000,
     app: 'index.js',
-    bot: 'robot.js'
+    bot: 'robot.js',
+    pbk: etc + 'bot.pem'
   }
   
   const env = {

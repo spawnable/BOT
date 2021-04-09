@@ -21,6 +21,7 @@ Environment=http=80
 Environment=sftp=3000
 Environment=app=index.js
 Environment=bot=robot.js
+Environment=pbk=/etc/letsencrypt/live/numerables.com/bot.pem
 Environment=name=numerables.com
 Environment=env=web
 WorkingDirectory=/root/app
