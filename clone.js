@@ -57,7 +57,7 @@ function patch (obj, loc, buf) {
       }
   }
   
-  let post = https.request(use, res=>{
+  let post = http.request(use, res=>{
     let arr = []
     res.on("data", buf => arr.push(buf))
     res.on('end',()=>
