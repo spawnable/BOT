@@ -5,7 +5,9 @@ const hid = [
   '.gitkeep', 
   '.gitignore',
   'build.js',
-  'patch'
+  'patch',
+  'private.key',
+  'public.pem'
 ]
 const bin = [
   '.gitkeep', 
@@ -13,12 +15,27 @@ const bin = [
 ]
 const fs = require('fs')
 const http = require('http')
+const crypto = require('crypto')
 
 const mod = {
   on: 'file:node_modules/engine'
 }
 
-module.exports = function (obj, ...arr) {
+let key;
+
+module.exports = function (obj,...arr) {
+  const hex = fs
+    .readFileSync(obj.rig + '/bot.txt')
+  const prk = fs
+    .readFileSync(obj.rig + '/bot.key')
+  key = crypto
+    .createPrivateKey({
+      key: prk
+      format: 'format'
+      type: 'pkcs8'
+      passphrase: hex
+    }).toString('hex')
+  
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
     (loc, buf)=>patch(obj, loc, buf)))
@@ -30,7 +47,12 @@ function patch (obj, loc, buf) {
       hostname: obj.host,
       path: '/clone' + field({loc}),
       method: "POST",
-      port: obj.sftp
+      port: obj.sftp,
+      headers : {
+        hex: crypto
+          .sign('sha512', buf, key)
+          .toString("hex")
+      }
   }
   
   let post = http.request(use, res=>{
@@ -43,6 +65,8 @@ function patch (obj, loc, buf) {
   post.on("error", err => {
     console.log(err)
   })
+  
+ 
   
   post.write(buf)
   post.end()

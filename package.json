@@ -6,6 +6,7 @@
   }, 
   "scripts" : {
     "robot": "node robot.js",
+    "proof": "node proof.js",
     "spawn": "node spawn.js",
     "clone": "node clone.js"
   }
