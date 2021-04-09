@@ -22,10 +22,8 @@ const task = {
       .log((new Date()).toISOString())
       
     const boo = crypto.verify(
-        'sha512', 
-        req.buf, 
-        pbk, 
-        req.tag.sig)
+        'sha512', req.buf, pbk, 
+        Buffer.from(req.tag.sig, 'hex'))
         
     console.log(boo)
     console.log(typeof boo)
