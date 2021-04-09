@@ -40,6 +40,7 @@ const task = {
 
 function route (req, res) {
   let obj = parse(req.url)
+  console.log(obj)
   let arr = []
   req.on("data", buf => arr.push(buf));
   req.on('end', ()=>
