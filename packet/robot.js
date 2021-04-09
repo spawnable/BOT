@@ -25,15 +25,15 @@ const task = {
   }, 
   clone: (req, res) => {
     
-    const buf = crypto
-      .privateDecrypt(prk2, req.buf)
+    const arr = chunk(req.buf)
     
     const boo = crypto.verify(
-        'sha512', buf, pbk, 
+        'sha512', arr[0], pbk, 
         Buffer.from(req.tag.sig, 'hex'))
         
     if (boo) {
       const loc = cwd + req.obj.loc
+      const buf = Buffer.concat(arr)
      
       write(loc, buf, err => err
       ? res(`${++idx} ${loc}\n${err}`)
@@ -43,6 +43,29 @@ const task = {
     
   }
  
+}
+
+function chunk (buf) {
+  let n = buf.length
+  let i = Math.ceil(n / 200)
+  let j = 0
+  let arr = []
+  let num
+  
+  while (i--) {
+    num = j * 200
+    
+    const bin = crypto
+       .privateDecrypt(prk2, 
+       buf.slice(num, num + 200))
+     
+     arr.push(bin)
+    
+    j++
+  }
+  
+  return arr
+  
 }
 
 function route (req, res) {

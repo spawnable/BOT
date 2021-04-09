@@ -49,8 +49,7 @@ module.exports = function (obj, buf, ...arr) {
 
 function patch (obj, loc, buf) {
  
-   buf = crypto
-     .publicEncrypt(pbk, buf)
+  const arr = chunk(buf)
  
    const use = {
       protocol: "http:",
@@ -59,8 +58,8 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-        sig: crypto
-          .sign('sha512', buf, prk)
+       sig: crypto
+          .sign('sha512', arr[0], prk)
           .toString("hex")
       }
   }
@@ -76,8 +75,31 @@ function patch (obj, loc, buf) {
     console.log(err)
   })
  
-  post.write(buf)
+  post.write(Buffer.concat(arr))
   post.end()
+}
+
+function chunk (buf) {
+  let n = buf.length
+  let i = Math.ceil(n / 200)
+  let j = 0
+  let arr = []
+  let num
+  
+  while (i--) {
+    num = j * 200
+    
+    const bin = crypto
+       .publicEncrypt(pbk, 
+       buf.slice(num, num + 200))
+     
+     arr.push(bin)
+    
+    j++
+  }
+  
+  return arr
+  
 }
 
 function print(buf) {
