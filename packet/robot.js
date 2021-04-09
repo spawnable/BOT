@@ -2,8 +2,9 @@
 const fs = require('fs')
 const cwd = process.cwd()
 const env = process.env
-const key = fs
-  .readFileSync(`/etc/letsencrypt/live/${env.name}/bot.pem`)
+let pbk;
+const url = new RegExp("^(\\w*\\s+)?(http:\\/\\/|https:\\/\\/)?([-_.\\w]*)?(:\\d*)?(\\/[-_./\\w]*)?(\\?.*)?")
+const key = new RegExp("[?&]([^&]+)=([^&]+)", "g")
 
 let idx = 0
 
@@ -22,7 +23,7 @@ const task = {
     const boo = crypto.verify(
         'sha512', 
         req.buf, 
-        key, 
+        pbk, 
         req.tag.sig)
         
     if (boo) {
@@ -30,7 +31,7 @@ const task = {
      
       write(loc, req.buf, err => err
         ? res(`${idx} ${loc}\n${err}`)
-        : res(`${idx} ${loc}`)
+        : res(`${idx} ${loc}`))
     } else res('[> <]')
     
   }
@@ -48,9 +49,6 @@ function route (req, res) {
     obj: obj.query},
     out=>reply(out, res)))
 }
-
-const url = new RegExp("^(\\w*\\s+)?(http:\\/\\/|https:\\/\\/)?([-_.\\w]*)?(:\\d*)?(\\/[-_./\\w]*)?(\\?.*)?")
-const key = new RegExp("[?&]([^&]+)=([^&]+)", "g")
 
 function parse (str) {
   const arr = url.exec(str)
@@ -173,4 +171,8 @@ if (env.spawn === 'index') {
 
 require("http")
 .createServer((req,res)=>route(req,res))
-.listen(env.sftp || 3000, env.host || '0.0.0.0')
+.listen(env.sftp || 3000, env.host || '0.0.0.0', ()=>{
+  if (env.sftp) pbk = fs
+  .readFileSync(`/etc/letsencrypt/live/${env.name}/bot.pem`)
+  
+})
