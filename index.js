@@ -20,6 +20,7 @@ const rig = {
 module.exports = function (use) {
   process.stdout.write('[o o]')
   const obj = spawn(bot.src, use)
+  obj.rig = rig.src + '/switch'
   auth(obj, buf=>job(buf, obj))
   
 }
@@ -58,15 +59,15 @@ function src (use) {
 function job (buf, obj) {
   if (buf) {
    log(buf.toString('utf8'))
-    obj.rig = rig.src + '/switch'
-    clone(obj, rig, app, bot)
+   console.log()
+   clone(obj, rig, app, bot)
   } else {
     console.log('[- -]')
   }
 }
 
 function log (str) {
-  process
+ process
     .stdout
     .write('\r\x1b[K' + str)
 }

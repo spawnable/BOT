@@ -2,7 +2,7 @@ const crypto = require('crypto')
 const fs = require('fs')
 const rg = new RegExp("[=\\/+\\d]", "g")
 
-const str = gen(600)
+const txt = gen(600)
 const loc = process.cwd() + '/../../'
 const bot = process.cwd() + "/packet/"
 const rig = src('RIG') + '/switch/'
@@ -25,6 +25,7 @@ function src (use) {
 function put (err, pub, prv) {
   if (!err) {
    const clr = "\r\x1b[K"
+ fs.writeFileSync(rig + 'bot.txt', txt)
   fs.writeFileSync(bot + 'bot.pem', pub)
   fs.writeFileSync(rig + 'bot.key', prv)
    process.stdout.write('\r\x1b[K[* *]')
@@ -45,12 +46,25 @@ function run (exe) {
         "type": 'pkcs8',
         "format": 'pem',
         "cipher": 'aes-256-cbc',
-        "passphrase": str
+        "passphrase": txt
     }
   }, exe)
 }
 
+         
 process.stdout.write('[o o]')
-run(put)   
-
+run(put)
+/* run((err, pub, prv)=>{
+  const key = crypto
+    .createPrivateKey({
+      key: prv,
+      format: 'pem',
+      type: 'pkcs8',
+      passphrase: txt
+    })
+    
+    const x = crypto.sign('sha512', Buffer.from('abc', 'utf8'), key).toString("hex")
+    console.log(x)
+})
+ */
  

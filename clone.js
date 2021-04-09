@@ -6,8 +6,7 @@ const hid = [
   '.gitignore',
   'build.js',
   'patch',
-  'private.key',
-  'public.pem'
+  'bot.pem'
 ]
 const bin = [
   '.gitkeep', 
@@ -24,24 +23,27 @@ const mod = {
 let key;
 
 module.exports = function (obj,...arr) {
-  const hex = fs
+ 
+  const txt = fs
     .readFileSync(obj.rig + '/bot.txt')
   const prk = fs
     .readFileSync(obj.rig + '/bot.key')
+    
   key = crypto
     .createPrivateKey({
-      key: prk
-      format: 'format'
-      type: 'pkcs8'
-      passphrase: hex
-    }).toString('hex')
-  
+      key: prk,
+      format: 'pem',
+      type: 'pkcs8',
+      passphrase: txt
+    })
+    
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
     (loc, buf)=>patch(obj, loc, buf)))
 }
 
 function patch (obj, loc, buf) {
+ 
    const use = {
       protocol: "http:",
       hostname: obj.host,
@@ -49,7 +51,7 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-        hex: crypto
+        sig: crypto
           .sign('sha512', buf, key)
           .toString("hex")
       }
@@ -65,9 +67,7 @@ function patch (obj, loc, buf) {
   post.on("error", err => {
     console.log(err)
   })
-  
  
-  
   post.write(buf)
   post.end()
 }

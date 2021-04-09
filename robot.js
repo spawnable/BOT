@@ -19,12 +19,11 @@ const task = {
     console
       .log((new Date()).toISOString())
       
-    const boo = crypto
-      .verify(
+    const boo = crypto.verify(
         'sha512', 
         req.buf, 
         key, 
-        req.tag.hex)
+        req.tag.sig)
         
     if (boo) {
       const loc = cwd + req.obj.loc

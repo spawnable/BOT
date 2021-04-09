@@ -2,20 +2,37 @@
 const fs = require('fs')
 const cwd = process.cwd()
 const env = process.env
+const key = fs
+  .readFileSync(`/etc/letsencrypt/live/${env.name}/bot.pem`)
 
-let count = 0
+let idx = 0
 
 const task = {
   index: (req, res)=> res('SKY'),
   check: (req, res) => {
-    res('(^ ^) hello')
+    idx = 0
+    res('[^ ^]')
   }, 
   clone: (req, res) => {
-    const loc = cwd + req.obj.loc
+    idx++ 
+    
+    console
+      .log((new Date()).toISOString())
       
-    write(loc, req.buf, err => err
-      ? res(`✗ ${loc} ${err}`)
-      : res(`✓ ${loc}`))
+    const boo = crypto.verify(
+        'sha512', 
+        req.buf, 
+        key, 
+        req.tag.sig)
+        
+    if (boo) {
+      const loc = cwd + req.obj.loc
+     
+      write(loc, req.buf, err => err
+        ? res(`${idx} ${loc}\n${err}`)
+        : res(`${idx} ${loc}`)
+    } else res('[> <]')
+    
   }
  
 }
@@ -23,11 +40,11 @@ const task = {
 function route (req, res) {
   let obj = parse(req.url)
   let arr = []
-  console.log(count++, obj.path)
   req.on("data", buf => arr.push(buf));
   req.on('end', ()=>
   task[obj.path]({
     buf: Buffer.concat(arr),
+    tag: req.headers,
     obj: obj.query},
     out=>reply(out, res)))
 }
