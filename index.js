@@ -59,11 +59,11 @@ function src (use) {
 function job (buf, obj) {
   if (buf) {
    log(buf.toString('utf8'))
-   console.log()
    clone(obj, rig, app, bot)
   } else {
-    console.log('[- -]')
+    log('[- -]')
   }
+  console.log()
 }
 
 function log (str) {
