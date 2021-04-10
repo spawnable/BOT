@@ -27,6 +27,8 @@ const task = {
     
   try {
     const arr = theta(req.buf, prk2)
+    console.log(arr)
+    console.log(req.tag.hex)
     if (sigma(arr[0], req.tag.hex, pbk)) {
         const loc = cwd + req.obj.loc
        
@@ -58,8 +60,7 @@ function theta (buf, prv) {
     })
 }
 
-function sigma (buf, str, pub) {
-  const sig = Buffer.from(str, 'hex')
+function sigma (buf, sig, pub) {
   return crypto
     .verify('sha512', buf, pub, sig)
 }
