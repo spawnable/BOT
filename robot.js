@@ -60,6 +60,7 @@ function theta (buf, prv) {
 }
 
 function sigma (buf, sig, pub) {
+  sig = Buffer.from(sig, 'hex')
   return crypto
     .verify('sha512', buf, pub, sig)
 }
