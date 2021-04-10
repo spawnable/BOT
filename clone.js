@@ -72,7 +72,7 @@ function patch (obj, loc, buf) {
     console.log(err)
   })
  
-  post.write(arr.join('\u0001'))
+  post.write(Buffer.from(arr.join('\u0001'), 'utf8'))
       
   post.end()
 }
