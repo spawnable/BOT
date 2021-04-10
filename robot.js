@@ -60,9 +60,15 @@ function theta (buf, prv) {
 }
 
 function sigma (buf, sig, pub) {
+  console.log(sig)
+  console.log(buf)
+  console.log(pub)
   sig = Buffer.from(sig, 'hex')
-  return crypto
+  console.log(sig)
+  const boo = crypto
     .verify('sha512', buf, pub, sig)
+  console.log(boo)
+  return boo
 }
 
 function route (req, res) {
