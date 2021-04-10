@@ -25,28 +25,45 @@ const task = {
   }, 
   clone: (req, res) => {
     
-  try {
-    
-    const arr = req.buf
-      .toString('utf8')
-      .split('\u0001')
-   
-    if (sigma(arr[0], req.tag.hex, pbk)) {
-        const buf = theta(arr, prk2)
-        const loc = cwd + req.obj.loc
-       
-        write(loc, buf, err => err
-        ? res(`${++idx} ${loc}\n${err}`)
-        : res(`${++idx} ${loc}`))
-          
-    } else res('[> <]')
-      
-  } catch (err) {
-    res('[x x]')
-  }
+    try {
+      if (req.tag.utf) 
+        patch(req, res)
+      else 
+        paste(req, res)
+    } catch (err) {
+      res('[x x]')
+    }
     
   }
  
+}
+
+function patch (req, res) {
+  const arr = req.buf
+      .toString('utf8')
+      .split('\u0001')
+   
+  if (sigma(arr[0], req.tag.utf, pbk)) {
+      const buf = theta(arr, prk2)
+      const loc = cwd + req.obj.loc
+     
+      write(loc, buf, err => err
+        ? res(`${++idx} ${loc}\n${err}`)
+        : res(`${++idx} ${loc}`))
+        
+  } else res('[> <]')
+  
+}
+
+function paste (req, res) {
+  if (alpha(req.buf, req.tag.bin, pbk)) {
+      const loc = cwd + req.obj.loc
+     
+      write(loc, req.buf, err => err
+        ? res(`# ${loc}\n${err}`)
+        : res(`# ${loc}`))
+        
+  } else res('[> <]')
 }
 
 function theta (arr, prv) {
@@ -66,6 +83,15 @@ function sigma (str, sig, pub) {
 
   return crypto
     .verify('sha512', buf, pub, sig)
+}
+
+function alpha (buf, sig, pub) {
+ 
+  sig = Buffer.from(sig, 'hex')
+
+  return crypto
+    .verify('sha512', 
+      buf.slice(0, 200), pub, sig)
 }
 
 function route (req, res) {

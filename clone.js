@@ -19,7 +19,7 @@ const crypto = require('crypto')
 const mod = {
   on: 'file:node_modules/engine'
 }
-
+const utf = ['js', 'html', 'css', 'json', 'txt']
 let prk
 let pbk
 
@@ -44,12 +44,19 @@ module.exports = function (obj, buf, ...arr) {
   
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
-    (loc, buf)=>patch(obj, loc, buf)))
+    (loc, buf)=> {
+      const type = loc
+        .split('.')
+        .reverse()[0]
+      if (utf.includes(type))
+        patch(obj, loc, buf)
+      else 
+          paste(obj, loc, buf)
+    }))
 }
 
-function patch (obj, loc, buf) {
-  
-   const arr = theta(buf, pbk)
+function paste (obj, loc, buf) {
+ 
    const use = {
       protocol: "http:",
       hostname: obj.host,
@@ -57,7 +64,7 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-       hex: sigma(arr[0], prk)
+       bin: alpha(buf, prk), 
       }
   }
   
@@ -71,17 +78,47 @@ function patch (obj, loc, buf) {
   post.on("error", err => {
     console.log(err)
   })
+  post.write(buf)
+  post.end()
+}
+
+function patch (obj, loc, buf) {
  
+   const arr = theta(buf, pbk)
+   const use = {
+      protocol: "http:",
+      hostname: obj.host,
+      path: '/clone' + field({loc}),
+      method: "POST",
+      port: obj.sftp,
+      headers : {
+       utf: sigma(arr[0], prk), 
+       
+      }
+  }
+  
+  let post = http.request(use, res=>{
+    let arr = []
+    res.on("data", buf => arr.push(buf))
+    res.on('end',()=>
+      print(Buffer.concat(arr)))
+  })
+  
+  post.on("error", err => {
+    console.log(err)
+  })
+  
   post.write(Buffer.from(arr.join('\u0001'), 'utf8'))
       
   post.end()
 }
 
 function theta (buf, pub) {
+  
   let cut
   return buf
     .toString('utf8')
-    .match(/.{1,50}/g)
+    .match(/(.|[\r\n]){1,300}/g)
     .map(str=>{
        cut = Buffer
          .from(str, 'utf8')
@@ -96,6 +133,13 @@ function sigma (hex, prv) {
       .sign('sha512', 
           Buffer.from(hex, 'hex'), prv)
       .toString("hex")
+}
+
+function alpha (buf, prv) {
+  return crypto
+     .sign('sha512', 
+         buf.slice(0, 200), prv)
+     .toString('hex')
 }
 
 function print(buf) {
@@ -141,6 +185,7 @@ function drill (src, loc, put, exe) {
   
     if (str.includes('.')) {
       buf = fs.readFileSync(src + dir)
+      
       exe(dir, buf)
     } else drill(src, dir, put, exe)
   })
