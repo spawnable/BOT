@@ -26,19 +26,22 @@ const task = {
   clone: (req, res) => {
     
   try {
-    const arr = theta(req.buf, prk2)
+    
+    const arr = req.buf
+      .toString('utf8')
+      .split('\u0001')
+   
     if (sigma(arr[0], req.tag.hex, pbk)) {
+        const buf = theta(arr, prk2)
         const loc = cwd + req.obj.loc
        
-        write(loc, Buffer.concat(arr), 
-        err => err
+        write(loc, buf, err => err
         ? res(`${++idx} ${loc}\n${err}`)
         : res(`${++idx} ${loc}`))
           
     } else res('[> <]')
       
   } catch (err) {
-    console.log(err)
     res('[x x]')
   }
     
@@ -46,29 +49,23 @@ const task = {
  
 }
 
-function theta (buf, prv) {
-  let cut
-      
-  return buf
-    .toString('utf8')
-    .split('\u0001')
-    .map(str => {
-      cut = Buffer.from(str, 'hex')
-      return crypto
-         .privateDecrypt(prv, cut)
-    })
+function theta (arr, prv) {
+  let buf
+  arr = arr.map(str => {
+    buf = Buffer.from(str, 'hex')
+    return crypto
+       .privateDecrypt(prv, buf)
+  })
+  return Buffer.concat(arr)
 }
 
-function sigma (buf, sig, pub) {
-  console.log(sig)
-  console.log(buf)
-  console.log(pub)
+function sigma (str, sig, pub) {
+ 
   sig = Buffer.from(sig, 'hex')
-  console.log(sig)
-  const boo = crypto
+  const buf = Buffer.from(str, 'hex')
+
+  return crypto
     .verify('sha512', buf, pub, sig)
-  console.log(boo)
-  return boo
 }
 
 function route (req, res) {
