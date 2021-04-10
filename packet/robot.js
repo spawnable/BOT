@@ -24,23 +24,44 @@ const task = {
     res(pbk2)
   }, 
   clone: (req, res) => {
-    const buf = req.buf
     
-    const boo = crypto.verify(
-        'sha512', buf, pbk, 
-        Buffer.from(req.tag.sig, 'hex'))
-        
-    if (boo) {
-      const loc = cwd + req.obj.loc
-     
-      write(loc, buf, err => err
-      ? res(`${++idx} ${loc}\n${err}`)
-      : res(`${++idx} ${loc}`))
-        
+  try {
+    const arr = theta(req.buf, prk2)
+    if (sigma(arr[0], req.tag.hex, pbk)) {
+        const loc = cwd + req.obj.loc
+       
+        write(loc, Buffer.concat(arr), 
+        err => err
+        ? res(`${++idx} ${loc}\n${err}`)
+        : res(`${++idx} ${loc}`))
+          
     } else res('[> <]')
+      
+  } catch (err) {
+    res('[x x]')
+  }
     
   }
  
+}
+
+function theta (buf, prv) {
+  let cut
+      
+  return buf
+    .toString('utf8')
+    .split('\u0001')
+    .map(str => {
+      cut = Buffer.from(str, 'hex')
+      return crypto
+         .privateDecrypt(prv, cut)
+    })
+}
+
+function sigma (buf, str, pub) {
+  const sig = Buffer.from(str, 'hex')
+  return crypto
+    .verify('sha512', buf, pub, sig)
 }
 
 function route (req, res) {
@@ -139,6 +160,34 @@ function plain (num) {
     .slice(0, num)
 }
 
+function proof (txt) {
+  crypto
+    .generateKeyPair('rsa', {
+        modulusLength: 4096,
+        publicKeyEncoding: {
+          type: 'spki',
+          format: 'pem'
+        },
+        privateKeyEncoding: {
+          type: 'pkcs8',
+          format: 'pem',
+          cipher: 'aes-256-cbc',
+          passphrase: txt
+        }
+    }, (err, pub, prv) => {
+  
+      pbk2 = pub
+     
+      prk2 = crypto
+        .createPrivateKey({
+          key: prv,
+          format: 'pem',
+          type: 'pkcs8',
+          passphrase: txt
+        })
+    })
+}
+
 function index () {
  
   const fs = require('fs')
@@ -183,35 +232,8 @@ if (env.spawn === 'index') {
 }
 
 if (env.pbk) {
-  const txt = plain(600)
   pbk = fs.readFileSync(env.pbk)
-  
-   crypto
-    .generateKeyPair('rsa', {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: 'spki',
-        format: 'pem'
-      },
-      privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'pem',
-        cipher: 'aes-256-cbc',
-        passphrase: txt
-      }
-    }, (err, pub, prv) => {
-  
-      pbk2 = pub
-     
-      prk2 = crypto
-        .createPrivateKey({
-          key: prv,
-          format: 'pem',
-          type: 'pkcs8',
-          passphrase: txt
-        })
-    })
-    
+  proof(plain(600))
   http
     .createServer(route)
     .listen(env.sftp, env.host)

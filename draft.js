@@ -2,10 +2,17 @@ const crypto = require('crypto')
 const etc = new RegExp("[=\\/+\\d]", "g")
 const txt = plain(600)
 const str = 'abcdeffhijklmnopqrstuvwxyz'
-const buf = Buffer.from(str, 'utf8')
 
 let pbk
 let prk
+
+function plain (num) {
+  return crypto
+    .randomBytes(num + 5)
+    .toString("base64")
+    .replace(etc, "")
+    .slice(0, num)
+}
 
 function gen () {
   crypto
@@ -37,81 +44,37 @@ function gen () {
           type: 'pkcs8',
           passphrase: txt
         })
+        
+      let buf
+      let arr = str
+          .match(/.{1,5}/g)
+        .map(str=>{
+           buf = Buffer
+             .from(str, 'utf8')
+           return crypto
+             .publicEncrypt(pbk, buf)
+             .toString('hex')
+         })
+         .join('\u0001')
       
+      arr = Buffer.from(arr, 'utf8')
+      arr = arr.toString('utf8')
       
-      let arr = buf
-        .toString('hex')
+      let end = arr
+        .split('\u0001')
+        .map(str => {
+          buf = Buffer
+             .from(str, 'hex')
+          return crypto
+             .privateDecrypt(prk, buf)
+             .toString('utf8')
+        })
+        .join('')
+        
+        console.log(end)
       
     })
   
 }
-  
-  
-    
 
-
-    .match(/.{1,200}/g)
-  
-  arr => {
-    arr.map(hex)
-  }
-  
-
-function chunk (buf) {
-  let n = buf.length
-  let i = Math.ceil(n / 200)
-  let j = 0
-  let arr = []
-  let num
-  
-  while (i--) {
-    num = j * 200
-    
-    const bin = crypto
-       .privateDecrypt(prk2, 
-       buf.slice(num, num + 200))
-     
-     arr.push(bin)
-    
-    j++
-  }
-  
-  return arr
-  
-}
-
-
-function chunk (buf) {
-  
-  
-  
-  
-  let n = buf.length
-  let i = Math.ceil(n / 200)
-  let j = 0
-  let arr = []
-  let num
-  
-  while (i--) {
-    num = j * 200
-    
-    const bin = crypto
-       .publicEncrypt(pbk, 
-       buf.slice(num, num + 200))
-     
-     arr.push(bin)
-    
-    j++
-  }
-  
-  return arr
-  
-}
-
-function plain (num) {
-  return crypto
-    .randomBytes(num + 5)
-    .toString("base64")
-    .replace(etc, "")
-    .slice(0, num)
-}
+gen()

@@ -48,7 +48,8 @@ module.exports = function (obj, buf, ...arr) {
 }
 
 function patch (obj, loc, buf) {
- 
+  
+   const arr = theta(buf, pbk)
    const use = {
       protocol: "http:",
       hostname: obj.host,
@@ -56,11 +57,8 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-       sig: crypto
-          .sign('sha512', 
-          Buffer.from(buf, 'hex'), 
-          prk)
-          .toString("hex")
+       hex: sigma(Buffer
+         .from(arr[0], 'hex'), prk)
       }
   }
   
@@ -75,8 +73,32 @@ function patch (obj, loc, buf) {
     console.log(err)
   })
  
-  post.write(buf)
+  post.write(
+    Buffer
+      .from(arr.join('\u0001'), 'utf8'))
+      
   post.end()
+}
+
+function theta (buf, pub) {
+  let cut
+  return buf
+    .toString('utf8')
+    .match(/.{1,200}/g)
+    .map(str=>{
+       cut = Buffer
+         .from(str, 'utf8')
+       return crypto
+         .publicEncrypt(pub, cut)
+         .toString('hex')
+     })
+}
+
+function sigma (buf, prv) {
+  return crypto
+      .sign('sha512', 
+          Buffer.from(buf, 'hex'), prv)
+      .toString("hex")
 }
 
 function print(buf) {
