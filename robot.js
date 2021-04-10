@@ -24,9 +24,10 @@ const task = {
     res(pbk2)
   }, 
   clone: (req, res) => {
+    const buf = req.buf
     
     const boo = crypto.verify(
-        'sha512', req.buf, pbk, 
+        'sha512', buf, pbk, 
         Buffer.from(req.tag.sig, 'hex'))
         
     if (boo) {
