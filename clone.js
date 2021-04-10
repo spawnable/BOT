@@ -57,8 +57,7 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-       hex: sigma(Buffer
-         .from(arr[0], 'hex'), prk)
+       hex: sigma(arr[0], prk)
       }
   }
   
@@ -73,9 +72,7 @@ function patch (obj, loc, buf) {
     console.log(err)
   })
  
-  post.write(
-    Buffer
-      .from(arr.join('\u0001'), 'utf8'))
+  post.write(arr.join('\u0001'))
       
   post.end()
 }
@@ -84,7 +81,7 @@ function theta (buf, pub) {
   let cut
   return buf
     .toString('utf8')
-    .match(/.{1,200}/g)
+    .match(/.{1,50}/g)
     .map(str=>{
        cut = Buffer
          .from(str, 'utf8')
@@ -94,10 +91,10 @@ function theta (buf, pub) {
      })
 }
 
-function sigma (buf, prv) {
+function sigma (hex, prv) {
   return crypto
       .sign('sha512', 
-          Buffer.from(buf, 'hex'), prv)
+          Buffer.from(hex, 'hex'), prv)
       .toString("hex")
 }
 
