@@ -38,6 +38,7 @@ const task = {
     } else res('[> <]')
       
   } catch (err) {
+    console.log(err)
     res('[x x]')
   }
     
