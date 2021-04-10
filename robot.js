@@ -27,8 +27,6 @@ const task = {
     
   try {
     const arr = theta(req.buf, prk2)
-    console.log(arr)
-    console.log(req.tag.hex)
     if (sigma(arr[0], req.tag.hex, pbk)) {
         const loc = cwd + req.obj.loc
        
