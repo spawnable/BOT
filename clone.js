@@ -75,7 +75,7 @@ function patch (obj, loc, buf) {
     console.log(err)
   })
  
-  post.write(arr.join())
+  post.write(buf)
   post.end()
 }
 

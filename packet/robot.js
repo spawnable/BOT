@@ -31,7 +31,6 @@ const task = {
         
     if (boo) {
       const loc = cwd + req.obj.loc
-      const buf = Buffer.concat(arr)
      
       write(loc, buf, err => err
       ? res(`${++idx} ${loc}\n${err}`)
