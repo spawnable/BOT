@@ -17,7 +17,7 @@ const http = require('http')
 const crypto = require('crypto')
 
 const mod = {
-  on: 'file:engine'
+  on: 'file:robot'
 }
 const utf = 
 ['js', 'html', 'css', 'json', 'txt', 'service']
