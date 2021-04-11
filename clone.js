@@ -17,10 +17,10 @@ const http = require('http')
 const crypto = require('crypto')
 
 const mod = {
-  on: 'file:node_modules/engine'
+  on: 'file:engine'
 }
 const utf = 
-['js', 'html', 'css', 'json', 'txt','pem', 'service']
+['js', 'html', 'css', 'json', 'txt', 'service']
 let prk
 let pbk
 
