@@ -19,7 +19,8 @@ const crypto = require('crypto')
 const mod = {
   on: 'file:node_modules/engine'
 }
-const utf = ['js', 'html', 'css', 'json', 'txt']
+const utf = 
+['js', 'html', 'css', 'json', 'txt','pem', 'service']
 let prk
 let pbk
 
@@ -51,7 +52,7 @@ module.exports = function (obj, buf, ...arr) {
       if (utf.includes(type))
         patch(obj, loc, buf)
       else 
-          paste(obj, loc, buf)
+        paste(obj, loc, buf)
     }))
 }
 
