@@ -1,9 +1,9 @@
 [Unit]
-Description=app
+Description=bot
 After=network.target
 
 [Service]
-ExecStart=/root/app/index.js
+ExecStart=/root/app/robot.js
 Restart=always
 Type=simple
 #User=nobody
@@ -13,7 +13,6 @@ Environment=key=/etc/letsencrypt/live/numerables.com/live.key
 Environment=cert=/etc/letsencrypt/live/numerables.com/cert.crt
 Environment=ca=/etc/letsencrypt/live/numerables.com/ca.crt
 Environment=host=157.230.254.141
-Environment=hex=79hlcSxMVVexuhW0iW12mVzmMkUYYC51
 Environment=web1=web1
 Environment=web2=web2
 Environment=dir=app

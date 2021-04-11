@@ -4,7 +4,7 @@ const rg = new RegExp("[=\\/+\\d]", "g")
 
 const txt = gen(600)
 const loc = process.cwd() + '/../../'
-const bot = process.cwd() + "/packet/"
+const bot = process.cwd() + "/bundle/"
 const rig = src('RIG') + '/switch/'
 
 function gen (num) {
@@ -54,18 +54,3 @@ function run (exe) {
          
 process.stdout.write('[o o]')
 run(put)
-/* run((err, pub, prv)=>{
-  const key = crypto
-    .createPrivateKey({
-      key: prv,
-      format: 'pem',
-      type: 'pkcs8',
-      passphrase: txt
-    })
-    
-    const x = crypto.sign('sha512', Buffer.from('abc', 'utf8'), key).toString("hex")
-    console.log(x)
-})
- */
- 
- 

@@ -254,8 +254,8 @@ function index () {
 if (env.spawn === 'index') {
   let str = index.toString()
   str = str.replace(
-    'function index () {',
-     '#!/usr/bin/env node')
+    "function index () {",
+     "#!/usr/bin/env node")
   str = str.substring(0, str.length - 1)
   fs.writeFileSync(cwd + '/index.js', str)
   return 

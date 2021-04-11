@@ -10,7 +10,7 @@ const app = {
 }
 const bot = {
   src: src('BOT'),
-  dir: '/packet'
+  dir: '/bundle'
 }
 const rig = {
   src: src('RIG'),

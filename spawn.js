@@ -62,7 +62,7 @@ module.exports = function (dir, obj) {
         + `${key}=${obj[key]}`
   }
   
-  const pkg = dir + '/packet/'
+  const pkg = dir + '/bundle/'
 
   fs.writeFileSync(pkg + 'app.service', 
     print('app', obj, str))
