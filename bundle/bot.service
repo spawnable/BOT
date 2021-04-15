@@ -9,6 +9,8 @@ Type=simple
 #User=nobody
 #Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
+Environment=key=/etc/letsencrypt/live/numerables.com/privkey.pem
+Environment=cert=/etc/letsencrypt/live/numerables.com/fullchain.pem
 Environment=host=157.230.254.141
 Environment=file=0000.json
 Environment=push=0
@@ -29,7 +31,7 @@ Environment=bot=robot.js
 Environment=pbk=/etc/letsencrypt/live/numerables.com/bot.pem
 Environment=name=numerables.com
 Environment=mode=test
-Environment=plug=false
+Environment=plug=true
 WorkingDirectory=/root/app
 
 [Install]
