@@ -20,7 +20,7 @@ const rig = {
 module.exports = function (use) {
   const obj = spawn(bot.src, use)
   if (process.env.clone) {
-    process.stdout.write('[•‿ •‿]')
+    process.stdout.write('[• •]')
     obj.rig = rig.src + '/switch'
     auth(obj, buf => job(buf, obj))
   } else{
