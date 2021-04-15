@@ -46,12 +46,12 @@ module.exports = function (dir, obj) {
   }
   
   const env = {
-    ...loc[obj.env],
-    ...obj[obj.env]
+    ...loc[obj.mode],
+    ...obj[obj.mode]
   }
   
-  delete obj.web
-  delete obj.dev
+  delete obj.test
+  delete obj.live
   
   obj = {...val, ...obj}
   obj = {...env, ...obj}

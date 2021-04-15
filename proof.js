@@ -28,7 +28,7 @@ function put (err, pub, prv) {
  fs.writeFileSync(rig + 'bot.txt', txt)
   fs.writeFileSync(bot + 'bot.pem', pub)
   fs.writeFileSync(rig + 'bot.key', prv)
-   process.stdout.write('\r\x1b[K[* *]')
+   process.stdout.write('\r\x1b[K[⁎* *]')
   } else
   process.stdout.write('\r\x1b[K[x x]')
 }
@@ -52,5 +52,5 @@ function run (exe) {
 }
 
          
-process.stdout.write('[o o]')
+process.stdout.write('[▪ ▪]')
 run(put)

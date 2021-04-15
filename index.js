@@ -18,10 +18,14 @@ const rig = {
 }
 
 module.exports = function (use) {
-  process.stdout.write('[o o]')
   const obj = spawn(bot.src, use)
-  obj.rig = rig.src + '/switch'
-  auth(obj, buf => job(buf, obj))
+  if (process.env.clone) {
+    process.stdout.write('[•‿ •‿]')
+    obj.rig = rig.src + '/switch'
+    auth(obj, buf => job(buf, obj))
+  } else{
+    process.stdout.write('[▪ ▪]')
+  }
 }
 
 function auth (obj, exe) {
