@@ -4,6 +4,7 @@ const hid = [
   '.git',
   '.gitkeep', 
   '.gitignore',
+  'clone.js',
   'build.js',
   'patch',
   'bot.pem'

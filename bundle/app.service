@@ -9,7 +9,7 @@ Type=simple
 #User=nobody
 #Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
-Environment=host=xxxxx
+Environment=host=157.230.254.141
 Environment=file=0000.json
 Environment=push=0
 Environment=code=0
@@ -26,9 +26,10 @@ Environment=http=80
 Environment=sftp=3000
 Environment=app=index.js
 Environment=bot=robot.js
-Environment=pbk=/etc/letsencrypt/live/xxxxx/bot.pem
-Environment=name=xxxxx
+Environment=pbk=/etc/letsencrypt/live/numerables.com/bot.pem
+Environment=name=numerables.com
 Environment=mode=test
+Environment=plug=false
 WorkingDirectory=/root/app
 
 [Install]

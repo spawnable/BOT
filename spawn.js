@@ -25,12 +25,12 @@ module.exports = function (dir, obj) {
             + obj.name + '/'
             
   const loc = {
-    web: {
+    live: {
       key: etc + 'live.key',
       cert: etc + 'cert.crt',
       ca: etc + 'ca.crt' 
     }, 
-    dev: {
+    test: {
       key: etc + 'privkey.pem',
       cert: etc + 'fullchain.pem'
     }}
