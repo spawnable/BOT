@@ -6,7 +6,7 @@ const hid = [
   '.gitignore',
   'clone.js',
   'build.js',
-  'patch',
+  'journal',
   'bot.pem'
 ]
 const bin = [

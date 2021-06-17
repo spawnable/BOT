@@ -14,7 +14,7 @@ Environment=cert=/etc/letsencrypt/live/xxxxx/fullchain.pem
 Environment=file=0000.json
 Environment=push=0
 Environment=code=0
-Environment=size=50
+Environment=size=500
 Environment=fill=2
 Environment=byte=10000000
 Environment=wake=10
@@ -31,7 +31,7 @@ Environment=pbk=/etc/letsencrypt/live/xxxxx/bot.pem
 Environment=name=xxxxx
 Environment=host=xxxxx
 Environment=mode=test
-Environment=plug=true
+Environment=plug=false
 WorkingDirectory=/root/app
 
 [Install]

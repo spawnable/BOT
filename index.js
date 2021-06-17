@@ -21,7 +21,7 @@ module.exports = function (use) {
   const obj = spawn(bot.src, use)
   if (process.env.clone) {
     process.stdout.write('[▪ ▪]')
-    obj.rig = rig.src + '/switch'
+    obj.rig = rig.src + '/system'
     auth(obj, buf => job(buf, obj))
   } else{
     console.log('[▪ ▪]')
