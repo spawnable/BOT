@@ -9,12 +9,12 @@ Type=simple
 #User=nobody
 #Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
-Environment=key=/etc/letsencrypt/live/xxxxx/privkey.pem
-Environment=cert=/etc/letsencrypt/live/xxxxx/fullchain.pem
+Environment=key=/etc/letsencrypt/live/numerables.com/privkey.pem
+Environment=cert=/etc/letsencrypt/live/numerables.com/fullchain.pem
 Environment=file=0000.json
 Environment=push=0
 Environment=code=0
-Environment=size=500
+Environment=size=50
 Environment=fill=2
 Environment=byte=10000000
 Environment=wake=10
@@ -27,11 +27,11 @@ Environment=http=80
 Environment=sftp=3000
 Environment=app=index.js
 Environment=bot=robot.js
-Environment=pbk=/etc/letsencrypt/live/xxxxx/bot.pem
-Environment=name=xxxxx
-Environment=host=xxxxx
+Environment=pbk=/etc/letsencrypt/live/numerables.com/bot.pem
+Environment=name=numerables.com
+Environment=host=139.59.119.128
 Environment=mode=test
-Environment=plug=false
+Environment=plug=true
 WorkingDirectory=/root/app
 
 [Install]
