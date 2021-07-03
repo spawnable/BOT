@@ -5,6 +5,7 @@ const rg = new RegExp("[=\\/+\\d]", "g")
 const txt = gen(600)
 const loc = process.cwd() + '/../../'
 const bot = process.cwd() + "/bundle/"
+
 const rig = src('MY-NODE-APP9CB40F00-65B1-4B08-8092-32BCE6DDE16B') + '/switch/'
 
 function gen (num) {
@@ -24,6 +25,7 @@ function src (use) {
 
 function put (err, pub, prv) {
   if (!err) {
+<<<<<<< HEAD
    const clr = "\r\x1b"
  fs.writeFileSync(rig + 'bot.txt', txt)
   fs.writeFileSync(bot + 'bot.pem', pub)
@@ -31,6 +33,15 @@ function put (err, pub, prv) {
    process.stdout.write('\r\x1b' + '⁎[* *]')
   } else
   process.stdout.write('\r\x1b[x x]')
+=======
+   const clr = "\r\x1b[K"
+ fs.writeFileSync(rig + 'bot.txt', txt)
+  fs.writeFileSync(bot + 'bot.pem', pub)
+  fs.writeFileSync(rig + 'bot.key', prv)
+   process.stdout.write('\r\x1b[K[⁎* *]')
+  } else
+  process.stdout.write('\r\x1b[K[x x]')
+>>>>>>> 6908487ec394ed898919290a7ebeff05bf9218f4
 }
 
    
