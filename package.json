@@ -1,0 +1,14 @@
+{
+  "name": "BOT",
+  "version": "1.0.0",
+  "dependencies": {
+
+  }, 
+  "scripts" : {
+    "robot": "node robot.js",
+    "proof": "node proof.js",
+    "spawn": "node spawn.js",
+    "clone": "node clone.js",
+    "draft": "node draft.js"
+  }
+}
