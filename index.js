@@ -9,11 +9,11 @@ const app = {
   dir: ''
 }
 const bot = {
-  src: src('BOT'),
+  src: src('MY-NODE-APPE51C32F1-847A-4A7B-99A3-FF485077904B'),
   dir: '/bundle'
 }
 const rig = {
-  src: src('RIG'),
+  src: src('MY-NODE-APP9CB40F00-65B1-4B08-8092-32BCE6DDE16B'),
   dir: '/engine'
 }
 
