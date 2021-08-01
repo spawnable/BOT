@@ -43,10 +43,11 @@ module.exports = function (obj, buf, ...arr) {
       format: 'pem',
       type: 'spki'
     })
-  
+ 
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
     (loc, buf)=> {
+ 
       const type = loc
         .split('.')
         .reverse()[0]
@@ -158,13 +159,13 @@ function field (obj) {
 }
 
 function drill (src, loc, put, exe) {
-  console.log(src + loc)
+ 
   const arr = fs
     .readdirSync(src + loc)
 
   arr.forEach(str=>{
     const dir = loc + '/' + str
-    
+   
     if (hid.includes(str)) {
       if (bin.includes(str))
         fs.unlinkSync(src + dir)
@@ -178,13 +179,16 @@ function drill (src, loc, put, exe) {
       pkg = JSON.parse(pkg)
       delete pkg.scripts
       let obj = pkg.dependencies
-      if (obj.up) delete obj.up
-      if (obj.on) obj.on = mod.on
-      pkg = JSON.stringify(pkg)
-      buf = Buffer.from(pkg, 'utf8')
-      exe(dir, buf)
-      return
+      if (obj) {
+        if (obj.up) delete obj.up
+        if (obj.on) obj.on = mod.on
+        pkg = JSON.stringify(pkg)
+        buf = Buffer.from(pkg, 'utf8')
+        exe(dir, buf)
+        return
+      }
     }
+   
   
     if (str.includes('.')) {
       buf = fs.readFileSync(src + dir)
