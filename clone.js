@@ -158,6 +158,7 @@ function field (obj) {
 }
 
 function drill (src, loc, put, exe) {
+  console.log(src + loc)
   const arr = fs
     .readdirSync(src + loc)
 
