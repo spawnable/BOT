@@ -9,9 +9,9 @@ Type=simple
 #User=nobody
 #Group=nogroup
 Environment=PATH=/usr/bin:/usr/local/bin
-Environment=key=/etc/letsencrypt/live/numerables/live.key
-Environment=cert=/etc/letsencrypt/live/numerables/cert.crt
-Environment=ca=/etc/letsencrypt/live/numerables/ca.crt
+Environment=key=/etc/letsencrypt/live/numerables.com/live.key
+Environment=cert=/etc/letsencrypt/live/numerables.com/cert.crt
+Environment=ca=/etc/letsencrypt/live/numerables.com/ca.crt
 Environment=file=0000.json
 Environment=push=0
 Environment=code=0
@@ -28,8 +28,8 @@ Environment=http=80
 Environment=sftp=3000
 Environment=app=index.js
 Environment=bot=robot.js
-Environment=pbk=/etc/letsencrypt/live/numerables/bot.pem
-Environment=name=numerables
+Environment=pbk=/etc/letsencrypt/live/numerables.com/bot.pem
+Environment=name=numerables.com
 Environment=host=157.245.198.63
 Environment=mode=live
 Environment=plug=true
