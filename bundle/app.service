@@ -14,13 +14,13 @@ Environment=cert=/etc/letsencrypt/live/numerables.com/cert.crt
 Environment=ca=/etc/letsencrypt/live/numerables.com/ca.crt
 Environment=file=0000.json
 Environment=push=0
-Environment=code=0
+Environment=code=6
 Environment=size=50
 Environment=fill=2
-Environment=byte=10000000
+Environment=byte=1000000000
 Environment=wake=10
-Environment=hash=79hlcSxMVVexuhW0iW12mVzm
-Environment=bond=79hlcSxMVVexuhW0iW12mVzm
+Environment=hash=79hlcSxMVVexuhW0iW12mVz
+Environment=bond=79hlcSxMVVexuhW0iW12mVzmMkU
 Environment=var2=var2
 Environment=dir=app
 Environment=https=443
