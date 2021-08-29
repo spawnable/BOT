@@ -19,8 +19,8 @@ Environment=size=50
 Environment=fill=2
 Environment=byte=1000000000
 Environment=wake=10
-Environment=hash=79hlcSxMVVexuhW0iW12mVz
-Environment=bond=79hlcSxMVVexuhW0iW12mVzmMkU
+Environment=hash=79
+Environment=bond=79
 Environment=var2=var2
 Environment=dir=app
 Environment=https=443

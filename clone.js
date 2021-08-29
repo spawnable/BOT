@@ -2,12 +2,13 @@ const hid = [
   'package-lock.json', 
   'node_modules',
   '.git',
-  '.gitkeep', 
+  //'.gitkeep', 
   '.gitignore',
   'clone.js',
   'build.js',
   'journal',
-  'bot.pem'
+  'bot.pem',
+  //'library'
 ]
 const bin = [
   '.gitkeep', 
