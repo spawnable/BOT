@@ -6,7 +6,7 @@ const txt = gen(600)
 const loc = process.cwd() + '/../../'
 const bot = process.cwd() + "/bundle/"
 
-const rig = src('MY-NODE-APP9CB40F00-65B1-4B08-8092-32BCE6DDE16B') + '/switch/'
+const rig = src('MY-NODE-APP9CB40F00-65B1-4B08-8092-32BCE6DDE16B') + '/script/'
 
 function gen (num) {
   return crypto
