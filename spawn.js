@@ -34,10 +34,8 @@ module.exports = function (dir, obj) {
       key: etc + 'live.key',
       cert: etc + 'cert.crt',
       ca: etc + 'ca.crt'
-      // key: etc + 'privkey.pem',
-      // cert: etc + 'fullchain.pem'
-
-    }}
+    }
+  }
     
   const val = {
     dir: 'app',

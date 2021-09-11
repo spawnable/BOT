@@ -227,9 +227,6 @@ function index () {
     key: fs.readFileSync(env.key),
     cert:fs.readFileSync(env.cert)
   }
-  if (env.ca) {
-    obj.ca = fs.readFileSync(env.ca); 
-  }
 
   let count = 0
 
