@@ -8,7 +8,7 @@ const hid = [
   'build.js',
   'journal',
   'bot.pem',
-  //'library'
+  'library'
 ]
 const bin = [
   '.gitkeep', 
