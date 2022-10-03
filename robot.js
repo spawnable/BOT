@@ -98,12 +98,14 @@ function route (req, res) {
   let obj = parse(req.url)
   let arr = []
   req.on("data", buf => arr.push(buf));
-  req.on('end', ()=>
-  task[obj.path]({
+  req.on('end', ()=> {
+    console.log(obj)
+    task[obj.path]({
     buf: Buffer.concat(arr),
     tag: req.headers,
     obj: obj.query},
-    out=>reply(out, res)))
+    out=>reply(out, res))}
+  )
 }
 
 function parse (str) {
@@ -264,7 +266,9 @@ if (env.pbk) {
   http
     .createServer(route)
     .listen(env.sftp, env.host)
- 
+  console.log(env)
 }
+
+
 
 

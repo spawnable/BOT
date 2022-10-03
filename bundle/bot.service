@@ -14,11 +14,11 @@ Environment=cert=/etc/letsencrypt/live/saturdaystuff.com/cert.crt
 Environment=ca=/etc/letsencrypt/live/saturdaystuff.com/ca.crt
 Environment=file=0000.json
 Environment=push=0
-Environment=code=6
+Environment=code=0
 Environment=size=1000
 Environment=fill=2
 Environment=byte=100000000000
-Environment=wake=30
+Environment=wake=10
 Environment=hash=VzmMkUYYC5179hlcSxMVVexuhW0iW12m
 Environment=bond=VzmMkUYYC5179hlcSxMVVexuhW0iW12m
 Environment=ipstack=dabe3a28947dab89660ee5e461bc38a4
@@ -38,7 +38,7 @@ Environment=bot=robot.js
 Environment=pbk=/etc/letsencrypt/live/saturdaystuff.com/bot.pem
 Environment=name=saturdaystuff.com
 Environment=host=159.65.142.71
-Environment=mode=live
+Environment=mode=test
 Environment=plug=true
 WorkingDirectory=/root/app
 

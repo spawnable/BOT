@@ -45,6 +45,7 @@ function auth (obj, exe) {
   })
   
   load.on("error", err => {
+    console.log(err);
     exe(false)
   })
   
@@ -64,6 +65,7 @@ function job (buf, obj) {
    log('[> -]')
    clone(obj, buf, rig, app, bot)
   } else {
+    console.log(buf, obj)
     log('[x x]')
   }
   console.log()
