@@ -7,8 +7,14 @@ const hid = [
   'clone.js',
   'build.js',
   'journal',
+  'example',
   'bot.pem',
-  'library'
+  '___',
+  /* DO NOT COMMENT THIS */
+  'ref',
+  'pkg',
+  'tmp'
+ /* BACKUP ALL DATA */
 ]
 const bin = [
   '.gitkeep', 
@@ -48,7 +54,7 @@ module.exports = function (obj, buf, ...arr) {
   arr.forEach(exe =>
     drill(exe.src, exe.dir, exe.dir, 
     (loc, buf)=> {
- 
+    
       const type = loc
         .split('.')
         .reverse()[0]
@@ -118,7 +124,6 @@ function patch (obj, loc, buf) {
 }
 
 function theta (buf, pub) {
-  
   let cut
   return buf
     .toString('utf8')
@@ -160,7 +165,7 @@ function field (obj) {
 }
 
 function drill (src, loc, put, exe) {
- 
+ console.log("packing:", loc)
   const arr = fs
     .readdirSync(src + loc)
 
