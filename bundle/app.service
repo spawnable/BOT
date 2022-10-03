@@ -27,8 +27,8 @@ Environment=stripe_sk=sk_test_51IXOa1AqxsXUf2WAp5uNdYdwvHJ9vmHVYJ6VlmnnlSCL6K3xi
 Environment=space_sk=GWfAi+U70Nhc7J3ECUA8jdKbGL0w/wV3SmiEgFdkNKw
 Environment=space_pk=KEGWAR4T4MXKN3ECO2PS
 Environment=space_ep=sgp1.digitaloceanspaces.com
-Environment=space_name=numerables
-Environment=space_link=https://numerables.sgp1.digitaloceanspaces.com
+Environment=space_name=saturdaystuff
+Environment=space_link=https://saturdaystuff.sgp1.digitaloceanspaces.com
 Environment=dir=app
 Environment=https=443
 Environment=http=80
