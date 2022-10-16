@@ -11,9 +11,8 @@ const hid = [
   'bot.pem',
   '___',
   /* DO NOT COMMENT THIS */
-  'ref',
-  'pkg',
-  'tmp'
+
+
  /* BACKUP ALL DATA */
 ]
 const bin = [
