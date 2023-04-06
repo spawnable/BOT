@@ -16,7 +16,7 @@ let pbk2
 let prk2
 
 const task = {
-  index: (req, res)=> res('SKY'),
+  index: (req, res)=> res("RIG"),
   check: (req, res) => {
     idx = 0
     console

@@ -1,4 +1,5 @@
 const hid = [
+  'KEY',
   'package-lock.json', 
   'node_modules',
   '.git',
@@ -10,19 +11,19 @@ const hid = [
   '___',
   /* PERSISTENT DATA  */
   
-  'ref', 
-  '0000.json',
-  'data.json',
-  'box', 
+  //'ref', 
+  //'0000.json',
+  //'data.json',
+  //'box', 
   
-  'img',
-  'mod',
-  'lib', 
+  //'img',
+  //'mod',
+  //'lib', 
   
   //'pkg',
   //'gui',
   //'exe',
-  'src'
+  //'src'
 
  /* BACKUP ALL DATA */
 ]
