@@ -6,12 +6,23 @@ const hid = [
   '.gitignore',
   'clone.js',
   'build.js',
-  'journal',
-  'example',
   'bot.pem',
   '___',
-  /* DO NOT COMMENT THIS */
-
+  /* PERSISTENT DATA  */
+  
+  'ref', 
+  '0000.json',
+  'data.json',
+  'box', 
+  
+  'img',
+  'mod',
+  'lib', 
+  
+  //'pkg',
+  //'gui',
+  //'exe',
+  'src'
 
  /* BACKUP ALL DATA */
 ]
