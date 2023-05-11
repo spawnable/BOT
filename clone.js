@@ -9,21 +9,28 @@ const hid = [
   'build.js',
   'bot.pem',
   '___',
+  
   /* PERSISTENT DATA  */
+  /*
+  "BAG",
+  "BAR",
+  "BID",
+  "BIG",
+  "BIN",
+  "BIO",
+  "BOX",
+  "BUN",
+  */
   
-  //'ref', 
-  //'0000.json',
-  //'data.json',
-  //'box', 
+  /* PLATFORM DATA  */
+  /*
+  "ENV",
+  "LIB",
+  "KIT",
+  */
   
-  //'img',
-  //'mod',
-  //'lib', 
-  
-  //'pkg',
-  //'gui',
-  //'exe',
-  //'src'
+  "LAB",
+  "KEY"
 
  /* BACKUP ALL DATA */
 ]
