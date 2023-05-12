@@ -14,13 +14,13 @@ Environment=cert=/etc/letsencrypt/live/numpic.com/cert.crt
 Environment=ca=/etc/letsencrypt/live/numpic.com/ca.crt
 Environment=file=0000.json
 Environment=push=0
-Environment=code=0
-Environment=size=1000
+Environment=code=6
+Environment=size=10000
 Environment=fill=2
 Environment=byte=100000000000
-Environment=wake=10
-Environment=hash=
-Environment=bond=
+Environment=wake=30
+Environment=hash=VzmMkUYYC5179hlcSxMVVexuhW0iW12m
+Environment=bond=VzmMkUYYC5179hlcSxMVVexuhW0iW12m
 Environment=dir=app
 Environment=https=443
 Environment=http=80
@@ -29,8 +29,8 @@ Environment=app=index.js
 Environment=bot=robot.js
 Environment=pbk=/etc/letsencrypt/live/numpic.com/bot.pem
 Environment=name=numpic.com
-Environment=host=157.245.56.170
-Environment=mode=test
+Environment=host=146.190.97.116
+Environment=mode=live
 Environment=plug=true
 WorkingDirectory=/root/app
 

@@ -1,7 +1,7 @@
 const hid = [
-  'KEY',
-  'package-lock.json', 
+ // 'package-lock.json', 
   'node_modules',
+  'human',
   '.git',
   //'.gitkeep', 
   '.gitignore',
@@ -11,7 +11,7 @@ const hid = [
   '___',
   
   /* PERSISTENT DATA  */
-  /*
+  
   "BAG",
   "BAR",
   "BID",
@@ -20,7 +20,7 @@ const hid = [
   "BIO",
   "BOX",
   "BUN",
-  */
+  
   
   /* PLATFORM DATA  */
   /*
@@ -43,7 +43,9 @@ const http = require('http')
 const crypto = require('crypto')
 
 const mod = {
-  on: 'file:robot'
+  "on": 'file:robot',
+  "aws-sdk": "xxxx", 
+  "sharp": "^0.32.1"
 }
 const utf = 
 ['js', 'html', 'css', 'json', 'txt', 'service']
@@ -205,7 +207,12 @@ function drill (src, loc, put, exe) {
       let obj = pkg.dependencies
       if (obj) {
         if (obj.up) delete obj.up
-        if (obj.on) obj.on = mod.on
+        
+        Object.keys(obj).
+         forEach(field => {
+          obj[field] = mod[field]
+         })
+        
         pkg = JSON.stringify(pkg)
         buf = Buffer.from(pkg, 'utf8')
         exe(dir, buf)
