@@ -1,39 +1,4 @@
-const hid = [
- // 'package-lock.json', 
-  'node_modules',
-  'human',
-  '.git',
-  //'.gitkeep', 
-  '.gitignore',
-  'clone.js',
-  'build.js',
-  'bot.pem',
-  '___',
-  
-  /* PERSISTENT DATA  */
-  
-  "BAG",
-  "BAR",
-  "BID",
-  "BIG",
-  "BIN",
-  "BIO",
-  "BOX",
-  "BUN",
-  
-  
-  /* PLATFORM DATA  */
-  /*
-  "ENV",
-  "LIB",
-  "KIT",
-  */
-  
-  "LAB",
-  "KEY"
 
- /* BACKUP ALL DATA */
-]
 const bin = [
   '.gitkeep', 
   '.gitignore'
@@ -42,18 +7,20 @@ const fs = require('fs')
 const http = require('http')
 const crypto = require('crypto')
 
-const mod = {
-  "on": 'file:robot',
-  "aws-sdk": "xxxx", 
-  "sharp": "^0.32.1"
-}
 const utf = 
 ['js', 'html', 'css', 'json', 'txt', 'service']
 let prk
 let pbk
 
-module.exports = function (obj, buf, ...arr) {
-    
+let hidden = []
+let plugin = {}
+
+module.exports = 
+function (obj, buf, mod, hid, ...arr) {
+  
+  hidden = hid
+  plugin = mod
+  
   prk = crypto
     .createPrivateKey({
       key: fs
@@ -192,7 +159,7 @@ function drill (src, loc, put, exe) {
   arr.forEach(str=>{
     const dir = loc + '/' + str
    
-    if (hid.includes(str)) {
+    if (hidden.includes(str)) {
       if (bin.includes(str))
         fs.unlinkSync(src + dir)
       return
@@ -210,7 +177,7 @@ function drill (src, loc, put, exe) {
         
         Object.keys(obj).
          forEach(field => {
-          obj[field] = mod[field]
+          obj[field] = plugin[field]
          })
         
         pkg = JSON.stringify(pkg)

@@ -1,3 +1,4 @@
+// MY-NODE-APPE51C32F1-847A-4A7B-99A3-FF485077904B
 const fs = require('fs')
 const http = require("http")
 const spawn = require('./spawn')
@@ -17,8 +18,19 @@ const rig = {
   dir: '/engine'
 }
 
+let hid = []
+let mod = {}
+
 module.exports = function (use) {
+  
+  hid = use["hide"]
+  mod = use["prop"]
+  
+  delete use["hide"]
+  delete use["prop"]
+  
   const obj = spawn(bot.src, use)
+  
   if (process.env.clone) {
     process.stdout.write('[▪ ▪]')
     obj.rig = rig.src + '/script'
@@ -63,7 +75,7 @@ function src (use) {
 function job (buf, obj) {
   if (buf) {
    log('[> -]')
-   clone(obj, buf, rig, app, bot)
+   clone(obj, buf, mod, hid, rig, app, bot)
   } else {
     log('[x x]')
   }
