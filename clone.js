@@ -81,7 +81,15 @@ function paste (obj, loc, buf) {
 
 function patch (obj, loc, buf) {
  
+
+  console.log(buf
+    .toString('utf8')
+    .match(/(.|[\r\n]){1,300}/g).length)
+  
+return 
+
    const arr = theta(buf, pbk)
+   
    const use = {
       protocol: "http:",
       hostname: obj.host,
@@ -89,8 +97,7 @@ function patch (obj, loc, buf) {
       method: "POST",
       port: obj.sftp,
       headers : {
-       utf: sigma(arr[0], prk), 
-       
+       utf: sigma(arr[0], prk)
       }
   }
   
@@ -112,6 +119,7 @@ function patch (obj, loc, buf) {
 
 function theta (buf, pub) {
   let cut
+  
   return buf
     .toString('utf8')
     .match(/(.|[\r\n]){1,300}/g)

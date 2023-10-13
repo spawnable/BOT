@@ -26,6 +26,7 @@ module.exports = function (use) {
   hid = use["hide"]
   mod = use["prop"]
   
+  
   delete use["hide"]
   delete use["prop"]
   
@@ -75,6 +76,7 @@ function src (use) {
 function job (buf, obj) {
   if (buf) {
    log('[> -]')
+  
    clone(obj, buf, mod, hid, rig, app, bot)
   } else {
     log('[x x]')
