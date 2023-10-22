@@ -208,8 +208,6 @@ function proof (txt) {
     }, (err, pub, prv) => {
   
       pbk2 = pub
-      
-      console.log(pbk2)
      
       prk2 = crypto
         .createPrivateKey({

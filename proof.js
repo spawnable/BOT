@@ -26,6 +26,7 @@ function src (use) {
 function put (err, pub, prv) {
   if (!err) {
    const clr = "\r\x1b"
+   
  fs.writeFileSync(rig + 'bot.txt', txt)
   fs.writeFileSync(bot + 'bot.pem', pub)
   fs.writeFileSync(rig + 'bot.key', prv)

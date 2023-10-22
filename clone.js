@@ -80,14 +80,7 @@ function paste (obj, loc, buf) {
 }
 
 function patch (obj, loc, buf) {
- 
-
-  console.log(buf
-    .toString('utf8')
-    .match(/(.|[\r\n]){1,300}/g).length)
-  
-return 
-
+   
    const arr = theta(buf, pbk)
    
    const use = {
@@ -120,8 +113,13 @@ return
 function theta (buf, pub) {
   let cut
   
+  buf = buf.toString('utf8')
+  
+  if (!buf.length) {
+   throw "**EXIST EMPTY FILE**"
+  }
+  
   return buf
-    .toString('utf8')
     .match(/(.|[\r\n]){1,300}/g)
     .map(str=>{
        cut = Buffer
