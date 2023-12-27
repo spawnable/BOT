@@ -43,7 +43,7 @@ Environment=app=index.js
 Environment=bot=robot.js
 Environment=pbk=/etc/letsencrypt/live/gini.wiki/bot.pem
 Environment=name=gini.wiki
-Environment=host=139.59.118.42
+Environment=host=178.128.221.167
 Environment=mode=live
 Environment=plug=true
 WorkingDirectory=/root/app
