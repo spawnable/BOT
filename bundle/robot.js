@@ -246,7 +246,7 @@ function index () {
     .listen(env.http, env.host)
   require('https')
     .createServer(obj, out)
-    .listen(env. https, env.host)
+    .listen(env.https, env.host)
 }
 
 if (env.spawn === 'index') {
