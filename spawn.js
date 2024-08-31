@@ -21,7 +21,7 @@ const fs = require('fs')
 
 module.exports = function (dir, obj) {
 
-  const etc = '/etc/letsencrypt/live/'
+  const etc = '/etc/app/'
             + obj.name + '/'
             
   const loc = {
